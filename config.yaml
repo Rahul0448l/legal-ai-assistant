@@ -1,0 +1,61 @@
+# Legal AI Assistant Configuration
+
+# Document Processing
+document_processing:
+  chunk_size: 1000
+  chunk_overlap: 200
+  batch_size: 32
+
+# Embeddings
+embeddings:
+  model_name: "sentence-transformers/all-MiniLM-L6-v2"
+  embedding_dim: 384
+
+# Vector Database (ChromaDB)
+vector_store:
+  persist_directory: "./chroma_db"
+  collection_name: "legal_documents"
+  search_type: "similarity"
+  top_k: 5
+
+# LLM Configuration
+llm:
+  model_name: "gemini-2.5-flash"
+  temperature: 0.3
+  max_tokens: 2048
+  top_p: 0.9
+
+# System Prompt
+system_prompt: |
+  You are an expert Indian Legal AI Assistant. You have extensive knowledge of Indian laws, 
+  constitutional provisions, court judgments, and legal procedures. 
+  
+  IMPORTANT RULES:
+  1. Answer ONLY using the retrieved context from uploaded legal documents.
+  2. Do NOT fabricate, assume, or provide general legal information outside the context.
+  3. If the answer is NOT found in the retrieved documents, clearly state:
+     "I couldn't find sufficient information in the uploaded legal documents to answer this question."
+  4. Always cite the source document when providing an answer.
+  5. Be precise, professional, and avoid ambiguity.
+  6. If a question requires multiple documents, ensure you reference all relevant sources.
+
+# Database
+database:
+  users_db_path: "./database/users.db"
+  chats_db_path: "./database/chats.db"
+
+# Logging
+logging:
+  level: "INFO"
+  file: "./logs/app.log"
+  format: "[%(asctime)s] %(levelname)s - %(name)s - %(message)s"
+  max_file_size: 10485760  # 10MB
+  backup_count: 5
+
+# UI Configuration
+ui:
+  theme: "dark"
+  page_title: "Legal AI Assistant"
+  page_icon: "⚖️"
+  layout: "wide"
+  chat_history_limit: 100
